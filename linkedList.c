@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include <stdbool.h>
+#include <stdbool.h>
 #include "linkedList.h"
 #include "node.h"
 #include <locale.h>
@@ -50,12 +50,27 @@ LinkedList* insertNode(LinkedList* list, int data){
 }
 
 LinkedList* insertEndNode(LinkedList* list, int data){
-	
 	Node* newNode = createNode(data);
+	Node* head = list->head;
+	Node* lastNode = NULL;
 	
-	if(isEmpty(list) != true){
-		printf("\nLista vazia!");
+	if(isEmpty(list) != false){
+		Node* head = list->head;
+		printf("\n");
+		while(head){
+			printf("%d| ", head->data);
+			if (head->next == NULL){
+				lastNode = head;
+			}
+			head = head->next;
+			
+		}
+	
+	printf("LastNode: %d", lastNode->data);
 	}
+	
+	printf("Inserido no fim da lista");
+//	printf("%d", lastNode->data);
 }
 
 LinkedList* deleteNode(LinkedList* list, int data){
@@ -65,6 +80,7 @@ LinkedList* deleteNode(LinkedList* list, int data){
 
 Node* find(LinkedList* list, int data){
 	
+	return NULL;
 }
 
 bool isEmpty(LinkedList* list){
@@ -76,7 +92,6 @@ bool isEmpty(LinkedList* list){
 }
 
 void printList(LinkedList* list){
-
 
 	printf("\nElementos na lista:\n");
 	if(isEmpty(list) != false){

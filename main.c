@@ -9,12 +9,14 @@ int main(){
 	linkedList = createList();
 	printList(linkedList);
 	
+	insertEndNode(linkedList, 3);
 	insertNode(linkedList, 3);
 	printList(linkedList);
 	
 	insertNode(linkedList, 5);
 	printList(linkedList);
 	
+	insertEndNode(linkedList, 3);
 	insertNode(linkedList, 7);
 	printList(linkedList);
 	
