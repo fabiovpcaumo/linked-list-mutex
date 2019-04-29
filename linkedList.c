@@ -31,17 +31,16 @@ Node* createNode(int data){
 	newNode->next = NULL;
 	newNode->data = data;
 	
-	printf("\nPróximo node: %p", newNode->next);
-	printf("\nValor do node: %d", newNode->data);
+	printf("\nValor do node: %d", newNode->data);	
 	
 	return newNode;
 }
 
 LinkedList* insertNode(LinkedList* list, int data){
-	
 	Node* newNode = createNode(data);
 	Node* temp = list->head;
 	printf("\nTemp: %p", temp); //deve ser 00000000000
+	
 	list->head = newNode;
 	newNode->next = temp;
 	list->length++;
@@ -49,28 +48,29 @@ LinkedList* insertNode(LinkedList* list, int data){
 	return list;
 }
 
+LinkedList* insertAfterSpecificNode(LinkedList* list, int data, int specificNode){
+	
+	return NULL;
+}
+
 LinkedList* insertEndNode(LinkedList* list, int data){
 	Node* newNode = createNode(data);
 	Node* head = list->head;
 	Node* lastNode = NULL;
 	
-	if(isEmpty(list) != false){
+	if(isEmpty(list) == false){
 		Node* head = list->head;
-		printf("\n");
-		while(head){
-			printf("%d| ", head->data);
-			if (head->next == NULL){
-				lastNode = head;
-			}
+		
+		while(head->next){
 			head = head->next;
-			
 		}
-	
-	printf("LastNode: %d", lastNode->data);
+		
+		head->next = newNode;
+		list->length++;
 	}
-	
-	printf("Inserido no fim da lista");
-//	printf("%d", lastNode->data);
+		
+	printf("\nElemento %d inserido no fim da lista\n", newNode->data);
+	return list;
 }
 
 LinkedList* deleteNode(LinkedList* list, int data){
@@ -78,23 +78,55 @@ LinkedList* deleteNode(LinkedList* list, int data){
 	return NULL;
 }
 
-Node* find(LinkedList* list, int data){
+Node* findNode(LinkedList* list, int data){
+	Node* head = list->head;
+	int posicao = 0;
 	
+	while(head){
+		if(head->data == data){
+//			printf("\n\nEncontrado o node de valor [%d] na posição [%d] da lista.\n\n", head->data, posicao);
+			return head;
+		}else{
+			head = head->next;
+		}
+		posicao++;
+	}
+//	printf("O node não foi encontrado na lista.");
 	return NULL;
 }
+
+int getNodePosition(LinkedList* list, int data){
+	Node* head = list->head;
+	int posicao = 0;
+
+	while(head){
+		if(head->data == data){
+			printf("\n\nEncontrado o node na posição [%d] da lista.\n\n", posicao);
+			return posicao;
+		}else{
+			head = head->next;
+		}
+		
+		posicao++;
+		}
+	
+	printf("\nO node não foi encontrado na lista.\n");
+	return -1;
+}
+
 
 bool isEmpty(LinkedList* list){
 	
 	if(list->head){
-		return true;
+		return false;
 	}
-	return false;
+	return true;
 }
 
 void printList(LinkedList* list){
 
 	printf("\nElementos na lista:\n");
-	if(isEmpty(list) != false){
+	if(isEmpty(list) == false){
 		Node* head = list->head;
 		
 		while(head){
@@ -104,5 +136,5 @@ void printList(LinkedList* list){
 		}
 	}
 
-	printf("\nTamanho da lista: %d", list->length);
+	printf("\nElementos na lista: %d\n", list->length);
 }
