@@ -29,3 +29,6 @@ void printList(LinkedList* list);
 
 //Verifica se a lista está vazia
 bool isEmpty(LinkedList* list);
+
+//Conta o número de elementos na lista
+int count(LinkedList* list);

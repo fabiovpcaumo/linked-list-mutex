@@ -6,9 +6,8 @@
 #include <locale.h>
 
 struct lista{
-	int length;
 	struct node* head;
-	
+	int length;
 };
 
 struct node{
@@ -21,7 +20,6 @@ LinkedList* createList(){
 	printf("\nCriando uma nova LinkedList.");
 	LinkedList* list = malloc(sizeof(LinkedList));
 	list->head = NULL;
-	list->length = 0;
 	return list;
 }
 
@@ -43,14 +41,19 @@ LinkedList* insertNode(LinkedList* list, int data){
 	
 	list->head = newNode;
 	newNode->next = temp;
-	list->length++;
 		
 	return list;
 }
 
 LinkedList* insertAfterSpecificNode(LinkedList* list, int data, int specificNode){
+	Node* wantedNode = findNode(list, specificNode);
+	Node* newNode = createNode(data);
+	Node* tempNode = wantedNode->next;
 	
-	return NULL;
+	wantedNode->next = newNode;
+	newNode->next = tempNode;
+	
+	return list;
 }
 
 LinkedList* insertEndNode(LinkedList* list, int data){
@@ -66,7 +69,6 @@ LinkedList* insertEndNode(LinkedList* list, int data){
 		}
 		
 		head->next = newNode;
-		list->length++;
 	}
 		
 	printf("\nElemento %d inserido no fim da lista\n", newNode->data);
@@ -74,8 +76,13 @@ LinkedList* insertEndNode(LinkedList* list, int data){
 }
 
 LinkedList* deleteNode(LinkedList* list, int data){
+	Node* wantedNode = findNode(list, data);
+	Node* temporaryNode = NULL;
+	if(wantedNode->next == NULL){
 	
-	return NULL;
+	}
+	
+	return list;
 }
 
 Node* findNode(LinkedList* list, int data){
@@ -84,14 +91,12 @@ Node* findNode(LinkedList* list, int data){
 	
 	while(head){
 		if(head->data == data){
-//			printf("\n\nEncontrado o node de valor [%d] na posição [%d] da lista.\n\n", head->data, posicao);
 			return head;
 		}else{
 			head = head->next;
 		}
 		posicao++;
 	}
-//	printf("O node não foi encontrado na lista.");
 	return NULL;
 }
 
@@ -114,7 +119,6 @@ int getNodePosition(LinkedList* list, int data){
 	return -1;
 }
 
-
 bool isEmpty(LinkedList* list){
 	
 	if(list->head){
@@ -135,6 +139,20 @@ void printList(LinkedList* list){
 			head = head->next;
 		}
 	}
-
-	printf("\nElementos na lista: %d\n", list->length);
+	
+	list->length = count(list);
+	printf("\nQuantidade de elementos na lista: %d", list->length);
 }
+
+int count(LinkedList* list){
+	Node* cursor = list->head;
+	int length_ = 0;
+	
+	while(cursor){
+		cursor = cursor->next;
+		length_++;
+	}
+	
+	return(length_);
+}
+

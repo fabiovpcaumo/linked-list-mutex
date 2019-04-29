@@ -25,7 +25,12 @@ int main(){
 	printList(linkedList);
 	
 	getNodePosition(linkedList, 99);
-	
+	insertAfterSpecificNode(linkedList, 84, 5);
+	printList(linkedList);
 	
 	printf("%p", findNode(linkedList, 98));
+	printf("\nQuantidade de elementos na lista: %d", count(linkedList));
+	
+	printList(linkedList);
+	
 }
