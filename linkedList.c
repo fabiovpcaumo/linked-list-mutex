@@ -16,6 +16,7 @@ struct node{
 
 };
 
+
 LinkedList* createList(){
 	printf("\nCriando uma nova LinkedList.");
 	LinkedList* list = malloc(sizeof(LinkedList));
@@ -37,7 +38,7 @@ Node* createNode(int data){
 LinkedList* insertNode(LinkedList* list, int data){
 	Node* newNode = createNode(data);
 	Node* temp = list->head;
-	printf("\nTemp: %p", temp); //deve ser 00000000000
+	printf("\nTemp: %p", temp); //deve ser NULL
 	
 	list->head = newNode;
 	newNode->next = temp;
@@ -147,7 +148,7 @@ bool isEmpty(LinkedList* list){
 void printList(LinkedList* list){
 
 	printf("\nElementos na lista:\n");
-	if(isEmpty(list) == false){
+	if(!isEmpty(list)){
 		Node* head = list->head;
 		
 		while(head){
@@ -155,6 +156,8 @@ void printList(LinkedList* list){
 			printf("%d| ", head->data);
 			head = head->next;
 		}
+	}else{
+		printf("Lista vazia.");
 	}
 	
 	list->length = count(list);
@@ -171,5 +174,24 @@ int count(LinkedList* list){
 	}
 	
 	return(length_);
+}
+
+LinkedList* deleteList(LinkedList* list){
+	Node* head = list->head;
+	Node* temporaryNode = NULL;
+	
+	while(head){
+		if(head->next){
+			temporaryNode = head->next->next;
+			free(head->next);
+			head->next = temporaryNode;
+			printf(" %p", temporaryNode);
+			printList(list);
+		}else{
+			free(head);
+
+		}
+	}
+	
 }
 

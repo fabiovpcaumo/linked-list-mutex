@@ -32,3 +32,6 @@ bool isEmpty(LinkedList* list);
 
 //Conta o número de elementos na lista
 int count(LinkedList* list);
+
+//Função para deletar a lista
+LinkedList* deleteList(LinkedList* list);
