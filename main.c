@@ -28,6 +28,8 @@ int main(){
 	insertAfterSpecificNode(linkedList, 84, 5);
 	printList(linkedList);
 	
+	deleteNode(linkedList, 9932);
+	
 	
 	printList(linkedList);
 	

@@ -76,10 +76,27 @@ LinkedList* insertEndNode(LinkedList* list, int data){
 }
 
 LinkedList* deleteNode(LinkedList* list, int data){
+	
+	Node* head = list->head;
 	Node* wantedNode = findNode(list, data);
 	Node* temporaryNode = NULL;
-	if(wantedNode->next == NULL){
-	
+	if(wantedNode != NULL && isEmpty(list) == false){
+		if(head == wantedNode){
+			temporaryNode = head->next;
+			free(head);
+			head = temporaryNode;
+			return list;
+		}else{
+			while(head){
+				if(head->next == wantedNode) {
+					temporaryNode = wantedNode->next;
+					free(wantedNode);
+					head->next = temporaryNode;
+				}
+				head = head->next;
+			}	
+		}
+		
 	}
 	
 	return list;
