@@ -180,18 +180,18 @@ LinkedList* deleteList(LinkedList* list){
 	Node* head = list->head;
 	Node* temporaryNode = NULL;
 	
-	while(head){
-		if(head->next){
-			temporaryNode = head->next->next;
-			free(head->next);
-			head->next = temporaryNode;
-			printf(" %p", temporaryNode);
-			printList(list);
-		}else{
-			free(head);
-
-		}
-	}
+	while(head->next){
+		temporaryNode = head->next->next;
+		free(head->next);
+		head->next = temporaryNode;
 	
+	}
+
+	free(list->head);
+	list->head = NULL;
+	free(list);
+	
+	printList(list);
+	printf("\nLista apagada.\n");
 }
 

@@ -33,5 +33,7 @@ int main(){
 	
 	deleteList(linkedList);
 	printList(linkedList);
+	printf("%s", isEmpty(linkedList) ? "\nA lista está vazia.\n": "\nExistem elementos na lista.\n");	
+	printf("%p", linkedList);
 	
 }
