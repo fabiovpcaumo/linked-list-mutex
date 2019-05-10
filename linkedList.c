@@ -97,7 +97,6 @@ LinkedList* deleteNode(LinkedList* list, int data){
 				head = head->next;
 			}	
 		}
-		
 	}
 	
 	return list;
@@ -187,7 +186,7 @@ LinkedList* deleteList(LinkedList* list){
 	
 	}
 
-	free(list->head);
+//	free(list->head);
 	list->head = NULL;
 	free(list);
 	
