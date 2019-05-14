@@ -4,34 +4,34 @@
 typedef struct lista LinkedList;
 
 //Cria uma lista vazia
-LinkedList* createList();
+LinkedList *createList();
 
-//Insere um node no começo da lista
-LinkedList* insertNode(LinkedList* list, int data);
+//Insere um node no comeÃ§o da lista
+LinkedList *insertNode(LinkedList *list, int data);
 
-//Insere um node após o node especificado
-LinkedList* insertAfterSpecificNode(LinkedList* list, int data, int specificNode);
+//Insere um node apÃ³s o node especificado
+LinkedList *insertAfterSpecificNode(LinkedList *list, int data, int specificNode);
 
 //Insere um node no final da lista
-LinkedList* insertEndNode(LinkedList* list, int data);
+LinkedList *insertEndNode(LinkedList *list, int data);
 
 //Remove um elemento da lista
-LinkedList* deleteNode(LinkedList* list, int data);
+LinkedList *deleteNode(LinkedList *list, int data);
 
-//Encontra a posição de um Node da lista
-int getNodePosition(LinkedList* list, int data);
+//Encontra a posiÃ§Ã£o de um Node da lista
+int getNodePosition(LinkedList *list, int data);
 
 //Encontra um node na lista
-Node* findNode(LinkedList* list, int data);
+Node *findNode(LinkedList *list, int data);
 
-//Printa o conteúdo da lista
-void printList(LinkedList* list);
+//Printa o conteÃºdo da lista
+void printList(LinkedList *list);
 
-//Verifica se a lista está vazia
-bool isEmpty(LinkedList* list);
+//Verifica se a lista estÃ¡ vazia
+bool isEmpty(LinkedList *list);
 
-//Conta o número de elementos na lista
-int count(LinkedList* list);
+//Conta o nÃºmero de elementos na lista
+int count(LinkedList *list);
 
-//Função para deletar a lista
-LinkedList* deleteList(LinkedList* list);
+//FunÃ§Ã£o para deletar a lista
+void deleteList(LinkedList *list);
