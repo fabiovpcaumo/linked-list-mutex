@@ -8,12 +8,13 @@
 #define THREADS_AMMOUNT 200
 
 pthread_t threads[THREADS_AMMOUNT];
-pthread_mutex_t lock;
+pthread_mutex_t list_lock = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t list_cond = PTHREAD_COND_INITIALIZER;
 LinkedList *linkedList;
 
 void *addOnList(void *lista)
 {
-	pthread_mutex_lock(&lock);
+	pthread_mutex_lock(&list_lock);
 
 	srand(time(NULL));
 	int value = rand();
@@ -21,21 +22,21 @@ void *addOnList(void *lista)
 	printf("\nInserindo valor na lista: %d\n", value);
 
 	insertNode(lista, value);
-	pthread_mutex_unlock(&lock);
+	pthread_mutex_unlock(&list_lock);
 }
 
 void *readList(void *lista)
 {
-	pthread_mutex_lock(&lock);
+	pthread_mutex_lock(&list_lock);
 	printf("Lendo a lista...");
 
 	readList(lista);
-	pthread_mutex_unlock(&lock);
+	pthread_mutex_unlock(&list_lock);
 }
 
 void *deleteFromList(void *lista)
 {
-	pthread_mutex_lock(&lock);
+	pthread_mutex_lock(&list_lock);
 	printf("Deletando da lista...");
 
 	Node *node = findNode(lista, 5);
@@ -45,7 +46,7 @@ void *deleteFromList(void *lista)
 		deleteNode(lista, getNodeData(node));
 	}
 
-	pthread_mutex_unlock(&lock);
+	pthread_mutex_unlock(&list_lock);
 }
 
 int main()
@@ -54,12 +55,6 @@ int main()
 	setlocale(LC_ALL, "Portuguese");
 	LinkedList *linkedList;
 	linkedList = createList();
-
-	if (pthread_mutex_init(&lock, NULL) != 0)
-	{
-		printf("\nOcorreu um erro ao inicializar o Mutex.");
-		return 1;
-	}
 
 	for (int i = 0; i < THREADS_AMMOUNT; i += 4)
 	{
@@ -70,10 +65,10 @@ int main()
 	}
 
 	// // Libera o espaço de memória das threads
-	// for (int i = 0; i < THREADS_AMMOUNT; i++)
-	// 	pthread_join(threads[i], NULL);
+	for (int i = 0; i < THREADS_AMMOUNT; i++)
+		pthread_join(threads[i], NULL);
 
-	pthread_mutex_destroy(&lock);
+	pthread_mutex_destroy(&list_lock);
 	getchar();
 	return 0;
 }

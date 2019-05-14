@@ -24,9 +24,8 @@ print(f'Arquivos a serem compilados: {files_to_compile}')
 # Executa um subprocess e invoca o comando do GCC de compilação
 # p = subprocess.run(["gcc", "-o", "mutexList.exe", files_to_compile],
 #                    capture_output=True, shell=True, cwd=cwd)
-p = subprocess.Popen(['gcc', '-o', 'mutexList.exe', files_to_compile],
+p = subprocess.Popen(['gcc', '-o', 'mutexList.exe', files_to_compile, "-std=c99", "-l", "pthread"],
                      stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, cwd=cwd)
 
 # Debug
-
 print(p.communicate()[1].rstrip())
