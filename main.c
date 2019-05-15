@@ -5,7 +5,7 @@
 #include <pthread.h>
 #include <time.h>
 #include <stdlib.h>
-#define THREADS_AMMOUNT 200
+#define THREADS_AMMOUNT 120
 
 pthread_t threads[THREADS_AMMOUNT];
 pthread_mutex_t list_lock = PTHREAD_MUTEX_INITIALIZER;
@@ -30,7 +30,7 @@ void *readList(void *lista)
 	pthread_mutex_lock(&list_lock);
 	printf("Lendo a lista...");
 
-	readList(lista);
+	printList(lista);
 	pthread_mutex_unlock(&list_lock);
 }
 
@@ -56,12 +56,18 @@ int main()
 	LinkedList *linkedList;
 	linkedList = createList();
 
-	for (int i = 0; i < THREADS_AMMOUNT; i += 4)
+	// for (int i = 0; i < THREADS_AMMOUNT; i += 3)
+	// {
+	// 	pthread_create(&threads[i], NULL, &addOnList, linkedList);
+	// 	pthread_create(&threads[i + 1], NULL, &readList, linkedList);
+	// 	pthread_create(&threads[i + 2], NULL, &deleteFromList, linkedList);
+	// }
+
+	for (int i = 0; i < THREADS_AMMOUNT; i += 3)
 	{
 		pthread_create(&threads[i], NULL, &addOnList, linkedList);
 		pthread_create(&threads[i + 1], NULL, &readList, linkedList);
 		pthread_create(&threads[i + 2], NULL, &deleteFromList, linkedList);
-		pthread_create(&threads[i + 3], NULL, &readList, linkedList);
 	}
 
 	// // Libera o espaço de memória das threads
@@ -69,6 +75,8 @@ int main()
 		pthread_join(threads[i], NULL);
 
 	pthread_mutex_destroy(&list_lock);
+	printf("Tamanho da lista: %d", count(linkedList));
+	readList(linkedList);
 	getchar();
 	return 0;
 }
