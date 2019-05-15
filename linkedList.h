@@ -24,6 +24,15 @@ LinkedList *deleteNodeFromSpecificPosition(LinkedList *list, int position);
 //Encontra a posição de um Node da lista
 int getNodePosition(LinkedList *list, int data);
 
+//Retorna o próximo Node de uma lista
+Node *getNextNode(LinkedList *list);
+
+//Retorna o head da lista
+Node *getHead(LinkedList *list);
+
+//Retorna o valor dentro de um node da lista
+int getNodeData(Node *node);
+
 //Encontra um node na lista
 Node *findNode(LinkedList *list, int data);
 

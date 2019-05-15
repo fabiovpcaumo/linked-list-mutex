@@ -5,6 +5,18 @@
 #include "linkedList.h"
 #include "node.h"
 
+#define run_test(function_name)      \
+	printf("%s \n", #function_name); \
+	function_name()
+
+#ifdef TESTING
+void test_create_list_should_return_empty_list()
+{
+	printf("rodando testes");
+}
+run_test(test_create_list_should_return_empty_list);
+#endif
+
 struct lista
 {
 	struct node *head;
@@ -188,6 +200,18 @@ int getNodePosition(LinkedList *list, int data)
 
 	printf("\nO node não foi encontrado na lista.\n");
 	return -1;
+}
+
+Node *getHead(LinkedList *list)
+{
+	Node *head = list->head;
+	return head;
+}
+
+Node *getNextNode(LinkedList *list)
+{
+	Node *next = list->head->next;
+	return next;
 }
 
 int getNodeData(Node *node)
