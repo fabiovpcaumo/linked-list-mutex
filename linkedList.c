@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <locale.h>
 #include "linkedList.h"
 #include "node.h"
-#include <locale.h>
 
 struct lista
 {
@@ -49,7 +49,6 @@ void deleteList(LinkedList *list)
 		head->next = temporaryNode;
 	}
 
-	//	free(list->head);
 	list->head = NULL;
 	free(list);
 
@@ -60,34 +59,24 @@ void deleteList(LinkedList *list)
 LinkedList *deleteNode(LinkedList *list, int data)
 {
 
-	Node *head = list->head;
+	// Node *head = list->head;
 	Node *wantedNode = findNode(list, data);
-	Node *temporaryNode = NULL;
+	// Node *temporaryNode = NULL;
+
 	if (wantedNode != NULL && isEmpty(list) == false)
 	{
-		if (head == wantedNode)
+		if (findNode(list, data) == NULL)
 		{
-			temporaryNode = head->next;
-			free(head);
-			head = temporaryNode;
-			return list;
-		}
-		else
-		{
-			while (head)
-			{
-				if (head->next == wantedNode)
-				{
-					temporaryNode = wantedNode->next;
-					free(wantedNode);
-					head->next = temporaryNode;
-				}
-				head = head->next;
-			}
+			printf("O elemento procurado não existe na lista.");
 		}
 	}
 
 	return list;
+}
+
+LinkedList *deleteNodeFromSpecificPosition(LinkedList *list, int position)
+{
+	return NULL;
 }
 
 LinkedList *insertNode(LinkedList *list, int data)
@@ -117,8 +106,6 @@ LinkedList *insertAfterSpecificNode(LinkedList *list, int data, int specificNode
 LinkedList *insertEndNode(LinkedList *list, int data)
 {
 	Node *newNode = createNode(data);
-	Node *head = list->head;
-	Node *lastNode = NULL;
 
 	if (isEmpty(list) == false)
 	{
@@ -231,4 +218,3 @@ int count(LinkedList *list)
 
 	return (length_);
 }
-

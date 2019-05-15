@@ -18,6 +18,9 @@ LinkedList *insertEndNode(LinkedList *list, int data);
 //Remove um elemento da lista
 LinkedList *deleteNode(LinkedList *list, int data);
 
+//Remove um elemento de uma posição específica da lista
+LinkedList *deleteNodeFromSpecificPosition(LinkedList *list, int position);
+
 //Encontra a posição de um Node da lista
 int getNodePosition(LinkedList *list, int data);
 
