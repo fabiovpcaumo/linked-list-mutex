@@ -56,13 +56,6 @@ int main()
 	LinkedList *linkedList;
 	linkedList = createList();
 
-	// for (int i = 0; i < THREADS_AMMOUNT; i += 3)
-	// {
-	// 	pthread_create(&threads[i], NULL, &addOnList, linkedList);
-	// 	pthread_create(&threads[i + 1], NULL, &readList, linkedList);
-	// 	pthread_create(&threads[i + 2], NULL, &deleteFromList, linkedList);
-	// }
-
 	for (int i = 0; i < THREADS_AMMOUNT; i += 3)
 	{
 		pthread_create(&threads[i], NULL, &addOnList, linkedList);

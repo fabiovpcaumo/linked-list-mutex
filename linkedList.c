@@ -37,6 +37,59 @@ Node *createNode(int data)
 	return newNode;
 }
 
+void deleteList(LinkedList *list)
+{
+	Node *head = list->head;
+	Node *temporaryNode = NULL;
+
+	while (head->next)
+	{
+		temporaryNode = head->next->next;
+		free(head->next);
+		head->next = temporaryNode;
+	}
+
+	//	free(list->head);
+	list->head = NULL;
+	free(list);
+
+	printList(list);
+	printf("\nLista apagada.\n");
+}
+
+LinkedList *deleteNode(LinkedList *list, int data)
+{
+
+	Node *head = list->head;
+	Node *wantedNode = findNode(list, data);
+	Node *temporaryNode = NULL;
+	if (wantedNode != NULL && isEmpty(list) == false)
+	{
+		if (head == wantedNode)
+		{
+			temporaryNode = head->next;
+			free(head);
+			head = temporaryNode;
+			return list;
+		}
+		else
+		{
+			while (head)
+			{
+				if (head->next == wantedNode)
+				{
+					temporaryNode = wantedNode->next;
+					free(wantedNode);
+					head->next = temporaryNode;
+				}
+				head = head->next;
+			}
+		}
+	}
+
+	return list;
+}
+
 LinkedList *insertNode(LinkedList *list, int data)
 {
 	Node *newNode = createNode(data);
@@ -83,39 +136,6 @@ LinkedList *insertEndNode(LinkedList *list, int data)
 	return list;
 }
 
-LinkedList *deleteNode(LinkedList *list, int data)
-{
-
-	Node *head = list->head;
-	Node *wantedNode = findNode(list, data);
-	Node *temporaryNode = NULL;
-	if (wantedNode != NULL && isEmpty(list) == false)
-	{
-		if (head == wantedNode)
-		{
-			temporaryNode = head->next;
-			free(head);
-			head = temporaryNode;
-			return list;
-		}
-		else
-		{
-			while (head)
-			{
-				if (head->next == wantedNode)
-				{
-					temporaryNode = wantedNode->next;
-					free(wantedNode);
-					head->next = temporaryNode;
-				}
-				head = head->next;
-			}
-		}
-	}
-
-	return list;
-}
-
 Node *findNode(LinkedList *list, int data)
 {
 	Node *head = list->head;
@@ -134,6 +154,29 @@ Node *findNode(LinkedList *list, int data)
 		posicao++;
 	}
 	return NULL;
+}
+
+void printList(LinkedList *list)
+{
+
+	printf("\nElementos na lista:\n");
+	if (!isEmpty(list))
+	{
+		Node *head = list->head;
+
+		for (int i = 0; i < count(list); i++)
+		{
+			printf("[%d] %d| ", i, head->data);
+			head = head->next;
+		}
+	}
+	else
+	{
+		printf("Lista vazia.");
+	}
+
+	list->length = count(list);
+	printf("\nQuantidade de elementos na lista: %d", list->length);
 }
 
 int getNodePosition(LinkedList *list, int data)
@@ -175,30 +218,6 @@ bool isEmpty(LinkedList *list)
 	return true;
 }
 
-void printList(LinkedList *list)
-{
-
-	printf("\nElementos na lista:\n");
-	if (!isEmpty(list))
-	{
-		Node *head = list->head;
-
-		while (head)
-		{
-
-			printf("%d| ", head->data);
-			head = head->next;
-		}
-	}
-	else
-	{
-		printf("Lista vazia.");
-	}
-
-	list->length = count(list);
-	printf("\nQuantidade de elementos na lista: %d", list->length);
-}
-
 int count(LinkedList *list)
 {
 	Node *cursor = list->head;
@@ -213,22 +232,3 @@ int count(LinkedList *list)
 	return (length_);
 }
 
-void deleteList(LinkedList *list)
-{
-	Node *head = list->head;
-	Node *temporaryNode = NULL;
-
-	while (head->next)
-	{
-		temporaryNode = head->next->next;
-		free(head->next);
-		head->next = temporaryNode;
-	}
-
-	//	free(list->head);
-	list->head = NULL;
-	free(list);
-
-	printList(list);
-	printf("\nLista apagada.\n");
-}
