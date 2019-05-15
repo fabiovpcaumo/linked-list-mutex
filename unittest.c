@@ -8,6 +8,7 @@
     function_name()
 
 #define MAX_TESTS 100
+//gcc -o runTest.exe unittest.c linkedList.c linkedList.h node.h -std=c99 -l pthread
 
 const char *passed_tests[MAX_TESTS];
 const char *failed_tests[MAX_TESTS];
