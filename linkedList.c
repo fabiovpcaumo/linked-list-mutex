@@ -71,24 +71,75 @@ void deleteList(LinkedList *list)
 LinkedList *deleteNode(LinkedList *list, int data)
 {
 
-	// Node *head = list->head;
+	Node *head = list->head;
 	Node *wantedNode = findNode(list, data);
-	// Node *temporaryNode = NULL;
+	Node *temporaryNode = NULL;
 
-	if (wantedNode != NULL && isEmpty(list) == false)
+	if (wantedNode != NULL && !isEmpty(list))
 	{
-		if (findNode(list, data) == NULL)
+		if (head == wantedNode)
 		{
-			printf("O elemento procurado não existe na lista.");
+			temporaryNode = head->next;
+			free(head);
+			head = temporaryNode;
+		}
+		else
+		{
+			while (head)
+			{
+				if (head->next == wantedNode)
+				{
+					temporaryNode = wantedNode->next;
+					free(wantedNode);
+					head->next = temporaryNode;
+				}
+				head = head->next;
+			}
 		}
 	}
-
-	return list;
 }
 
 LinkedList *deleteNodeFromSpecificPosition(LinkedList *list, int position)
 {
-	return NULL;
+	Node *head = list->head;
+	Node *temporaryNode = NULL;
+	int iter = 0;
+	if (count(list) >= position && !isEmpty(list))
+	{
+		if (position == 0) //No começo da lista
+		{
+			temporaryNode = head->next;
+			free(head);
+			head = temporaryNode;
+			return NULL;
+		}
+
+		if (position == count(list)) //No fim da lista
+		{
+			while (head->next->next)
+			{
+				head = head->next;
+			}
+			free(head->next);
+			head->next = NULL;
+			return NULL;
+		}
+
+		while (head)
+		{
+			if (iter + 1 == position)
+			{
+				temporaryNode = head->next->next;
+				free(head->next);
+				head->next = temporaryNode;
+				return NULL;
+			}
+			else
+			{
+				head = head->next;
+			}
+		}
+	}
 }
 
 LinkedList *insertNode(LinkedList *list, int data)
@@ -221,12 +272,11 @@ int getNodeData(Node *node)
 
 bool isEmpty(LinkedList *list)
 {
-
-	if (list->head)
+	if (!list->head)
 	{
-		return false;
+		return true;
 	}
-	return true;
+	return false;
 }
 
 int count(LinkedList *list)

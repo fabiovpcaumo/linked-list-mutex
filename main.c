@@ -64,7 +64,7 @@ int main()
 	}
 
 	// // Libera o espaço de memória das threads
-	for (int i = 0; i < THREADS_AMMOUNT; i++)
+	for (int i = 0; i < THREADS_AMMOUNT; ++i)
 		pthread_join(threads[i], NULL);
 
 	pthread_mutex_destroy(&list_lock);
